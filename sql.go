@@ -107,3 +107,12 @@ func (u *NullUUID) UnmarshalJSON(b []byte) error {
 
 	return nil
 }
+
+// MarshalYAML marshals the NullUUID as null or the nested UUID
+func (u NullUUID) MarshalYAML() (interface{}, error) {
+	if !u.Valid {
+		return nil, nil
+	}
+
+	return u.UUID, nil
+}
